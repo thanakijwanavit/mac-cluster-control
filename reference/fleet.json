@@ -1,0 +1,57 @@
+{
+  "tailnet": "thanakijwanavit.github",
+  "magicdns_suffix": "taile8dc37.ts.net",
+  "updated": "2026-08-16",
+  "tools": ["kimi", "claude", "cursor-agent", "grok"],
+  "hosts": [
+    {
+      "name": "nmba",
+      "alias": null,
+      "magicdns": "nmba.taile8dc37.ts.net",
+      "ipv4": "100.85.210.76",
+      "role": "operator-laptop",
+      "self": true,
+      "note": "This MacBook Air. Audited locally, never over SSH."
+    },
+    {
+      "name": "mac-mini-3",
+      "alias": "mini3",
+      "magicdns": "mac-mini-3.taile8dc37.ts.net",
+      "ipv4": "100.122.229.17",
+      "role": "always-on",
+      "note": "M4 Pro 64 GB. Dashboard host and housekeeping scheduler."
+    },
+    {
+      "name": "magnus-mac-mini",
+      "alias": "magnus",
+      "magicdns": "magnus-mac-mini.taile8dc37.ts.net",
+      "ipv4": "100.122.25.8",
+      "role": "always-on",
+      "note": "M1 16 GB. Advertises exit node."
+    },
+    {
+      "name": "nics-macbook-pro",
+      "alias": "nmbp",
+      "magicdns": "nics-macbook-pro.taile8dc37.ts.net",
+      "ipv4": "100.65.143.12",
+      "role": "laptop",
+      "note": "Online but SSH denied for the Air key (bd mcc-bzh); reachable via Jump VNC."
+    },
+    {
+      "name": "nics-mac-mini-2",
+      "alias": "mini2",
+      "magicdns": "nics-mac-mini-2.taile8dc37.ts.net",
+      "ipv4": "100.97.242.33",
+      "role": "always-on",
+      "note": "Offline since 2026-08-03, Tailscale key expired (bd mcc-2a3)."
+    },
+    {
+      "name": "prathams-macbook-air-1",
+      "alias": null,
+      "magicdns": "prathams-macbook-air-1.taile8dc37.ts.net",
+      "ipv4": null,
+      "role": "laptop",
+      "note": "Offline 2026-08-14. No SSH alias or key installed yet."
+    }
+  ]
+}

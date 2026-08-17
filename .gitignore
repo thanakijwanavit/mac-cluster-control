@@ -16,3 +16,6 @@ private/**
 *.db
 .beads-credential-key
 .beads/proxieddb/
+
+# MCP server venv
+mcp/fleet-mcp/.venv/

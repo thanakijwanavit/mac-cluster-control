@@ -47,11 +47,20 @@ This GitHub repo is **public**. No passwords, private keys, Jump Desktop keychai
 - User on machines we control is `nic`, key `~/.ssh/id_ed25519` (`nic@nics-MacBook-Air.local`).
 - Prefer MagicDNS over raw `100.x` in commands you give humans.
 
+## Control plane (added 2026-08-16)
+
+- `reference/fleet.json` is the machine registry. Add/remove Macs there — the audit script, dashboard, and `mcp/fleet-mcp` all read it. Keep `machines/*.md` as the human notes; fleet.json is the machine-readable index.
+- Dashboard: https://doconnect-sf.taile8dc37.ts.net:8443/ (tailnet-only; always-on Linux box). Audited hourly on mac-mini-3 by `scripts/fleet-audit.sh` via launchd, then published by rsync to `doconnect-sf:/var/www/mac-fleet/`. Do not hand-edit `dashboard/data.json`.
+- Housekeeping (CLI upgrades): `scripts/housekeeping.sh`, weekly on mini3, see [[housekeeping]].
+- Fleet MCP server: `mcp/fleet-mcp/` — registered in kimi/claude/cursor/grok on nmba; see its README before changing `server.py` (restart of the agent session picks up changes).
+- mac-mini-3 holds the fleet SSH key; its repo checkout at `~/stacks/mac-cluster-control` is what the scheduled jobs run — after pushing to `main`, that checkout self-updates via `git pull` in the scheduled wrappers.
+- Bash on these Macs is 3.2 — no `${var,,}`, no associative arrays in scripts.
+
 ## After you finish
 
 1. Update [[access-matrix]] if reachability changed.
 2. Update the machine note, not only the session log.
-3. File remaining work with `bd` once beads is initialised in this repo.
+3. File remaining work with `bd` (`mcc-*` issues).
 
 <!-- BEGIN BEADS INTEGRATION v:1 profile:minimal hash:970c3bf2 -->
 ## Beads Issue Tracker

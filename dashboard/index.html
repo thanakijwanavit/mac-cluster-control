@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mac fleet dashboard</title>
+<style>
+  :root { color-scheme: light dark; }
+  body { font: 14px/1.45 -apple-system, system-ui, sans-serif; margin: 2rem auto; max-width: 1200px; padding: 0 1rem; }
+  h1 { font-size: 1.4rem; margin-bottom: .2rem; }
+  .meta { color: #888; font-size: .85rem; margin-bottom: 1.2rem; }
+  table { border-collapse: collapse; width: 100%; }
+  th, td { text-align: left; padding: .45rem .6rem; border-bottom: 1px solid #8883; white-space: nowrap; }
+  th { font-size: .8rem; text-transform: uppercase; letter-spacing: .04em; color: #888; }
+  td.wrap { white-space: normal; }
+  .dot { display: inline-block; width: .65em; height: .65em; border-radius: 50%; margin-right: .4em; }
+  .online { background: #34c759; } .offline { background: #8e8e93; }
+  .ssh-denied { background: #ff9500; } .stale { background: #ff3b30; }
+  .missing { color: #ff3b30; } .ok { color: inherit; }
+  .ver { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: .85em; }
+  #err { color: #ff3b30; }
+</style>
+</head>
+<body>
+<h1>Mac fleet dashboard</h1>
+<div class="meta">
+  <span id="generated"></span> · audited from <span id="from"></span> ·
+  auto-reloads every 60 s · source: <code>scripts/fleet-audit.sh</code>
+</div>
+<div id="err"></div>
+<table>
+  <thead><tr>
+    <th>Host</th><th>macOS</th><th>Tailscale</th><th>SSH :22</th><th>VNC :5900</th>
+    <th>kimi</th><th>claude</th><th>cursor-agent</th><th>grok</th>
+    <th>Disk free</th><th>Uptime (d)</th>
+  </tr></thead>
+  <tbody id="rows"></tbody>
+</table>
+<script>
+const TOOLS = ["kimi", "claude", "cursor-agent", "grok"];
+function ver(v) {
+  if (v === undefined || v === null || v === "") return '<span class="missing">—</span>';
+  if (v === "missing") return '<span class="missing">missing</span>';
+  return '<span class="ver ok">' + v.replace(/</g, "&lt;") + "</span>";
+}
+function port(v) {
+  if (v === "open") return "open";
+  if (v === "closed") return '<span class="missing">closed</span>';
+  return "—";
+}
+async function load() {
+  try {
+    const r = await fetch("data.json?ts=" + Date.now(), {cache: "no-store"});
+    const d = await r.json();
+    document.getElementById("generated").textContent = "generated " + d.generated;
+    document.getElementById("from").textContent = d.audited_from;
+    const rows = d.hosts.map(h => {
+      const dot = '<span class="dot ' + h.status + '"></span>';
+      const cells = TOOLS.map(t => "<td>" + ver(h.tools[t]) + "</td>").join("");
+      return "<tr><td>" + dot + h.name + "</td>" +
+        "<td>" + ver(h.macos) + "</td><td>" + ver(h.tailscale) + "</td>" +
+        "<td>" + port(h.port22) + "</td><td>" + port(h.port5900) + "</td>" +
+        cells +
+        "<td>" + (h.disk_free || "—") + "</td><td>" + (h.uptime_days || "—") + "</td></tr>";
+    }).join("");
+    document.getElementById("rows").innerHTML = rows;
+    document.getElementById("err").textContent = "";
+  } catch (e) {
+    document.getElementById("err").textContent = "failed to load data.json: " + e;
+  }
+}
+load();
+setInterval(load, 60000);
+</script>
+</body>
+</html>

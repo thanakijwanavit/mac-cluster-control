@@ -1,0 +1,126 @@
+{
+  "generated": "2026-08-16T08:02:21Z",
+  "audited_from": "nmba",
+  "hosts": [
+    {
+      "name": "nmba",
+      "status": "online",
+      "port22": "closed",
+      "port5900": "closed",
+      "ssh": "self",
+      "macos": "26.6.1",
+      "build": "25G76",
+      "arch": "arm64",
+      "uptime_days": "4",
+      "disk_free": "65Gi",
+      "tailscale": "1.98.9",
+      "jump": "Jump Desktop",
+      "tools": {
+        "kimi": "0.36.1",
+        "claude": "2.1.233 (Claude Code)",
+        "cursor-agent": "2026.08.11-e8db854",
+        "grok": "grok 1.0.4 (d846eb93d94d)"
+      }
+    },
+    {
+      "name": "mac-mini-3",
+      "status": "online",
+      "port22": "open",
+      "port5900": "open",
+      "ssh": "ok",
+      "macos": "26.5",
+      "build": "25F71",
+      "arch": "arm64",
+      "uptime_days": "9",
+      "disk_free": "260Gi",
+      "tailscale": "1.94.1",
+      "jump": "missing",
+      "tools": {
+        "kimi": "0.36.1",
+        "claude": "2.1.31 (Claude Code)",
+        "cursor-agent": "2026.02.13-41ac335",
+        "grok": "grok 1.0.4 (d846eb93d94d)"
+      }
+    },
+    {
+      "name": "magnus-mac-mini",
+      "status": "online",
+      "port22": "open",
+      "port5900": "open",
+      "ssh": "ok",
+      "macos": "26.2",
+      "build": "25C56",
+      "arch": "arm64",
+      "uptime_days": "22",
+      "disk_free": "217Mi",
+      "tailscale": "1.96.2",
+      "jump": "Jump Desktop",
+      "tools": {
+        "kimi": "kimi, version 1.14.0",
+        "claude": "2.1.29 (Claude Code)",
+        "cursor-agent": "present",
+        "grok": "missing"
+      }
+    },
+    {
+      "name": "nics-macbook-pro",
+      "status": "offline",
+      "port22": "closed",
+      "port5900": "closed",
+      "ssh": "n/a",
+      "macos": "",
+      "build": "",
+      "arch": "",
+      "uptime_days": "",
+      "disk_free": "",
+      "tailscale": "",
+      "jump": "",
+      "tools": {
+        "kimi": "",
+        "claude": "",
+        "cursor-agent": "",
+        "grok": ""
+      }
+    },
+    {
+      "name": "nics-mac-mini-2",
+      "status": "offline",
+      "port22": "closed",
+      "port5900": "closed",
+      "ssh": "n/a",
+      "macos": "",
+      "build": "",
+      "arch": "",
+      "uptime_days": "",
+      "disk_free": "",
+      "tailscale": "",
+      "jump": "",
+      "tools": {
+        "kimi": "",
+        "claude": "",
+        "cursor-agent": "",
+        "grok": ""
+      }
+    },
+    {
+      "name": "prathams-macbook-air-1",
+      "status": "offline",
+      "port22": "closed",
+      "port5900": "closed",
+      "ssh": "n/a",
+      "macos": "",
+      "build": "",
+      "arch": "",
+      "uptime_days": "",
+      "disk_free": "",
+      "tailscale": "",
+      "jump": "",
+      "tools": {
+        "kimi": "",
+        "claude": "",
+        "cursor-agent": "",
+        "grok": ""
+      }
+    }
+  ]
+}
