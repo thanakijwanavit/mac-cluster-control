@@ -5,7 +5,7 @@ status: stable
 tags: [machine, mini]
 tailscale_host: mac-mini-3
 created: 2026-08-14
-updated: 2026-08-14
+updated: 2026-08-19
 owner: nic
 ---
 
@@ -34,3 +34,7 @@ This mini hosts the fleet control plane:
 - Repo checkout `~/stacks/mac-cluster-control` (HTTPS clone of the public repo).
 - launchd: `com.maccluster.fleet-dashboard` (python http.server :8788 → dashboard dir), `com.maccluster.fleet-audit` (hourly audit + rsync publish to doconnect-sf), `com.maccluster.fleet-housekeeping` (Mon 09:17).
 - `tailscale serve --bg 8788` exposes a secondary copy at https://mac-mini-3.taile8dc37.ts.net/ tailnet-only. Primary dashboard is on doconnect-sf — see [[fleet-dashboard]] and [[housekeeping]].
+
+Agent CLIs (2026-08-19 housekeeping): Kimi Code **0.37.2**, claude native **2.1.235** (`~/.local/share/claude/versions/2.1.235`). `/opt/homebrew/bin/claude` was a leftover 2.1.31 Mach-O (not a keg); it is now a symlink to the native binary so the `.zshrc` `claude()` wrapper still works. Old 2.1.31 sits at `~/.local/share/claude-leftovers/`. `cursor-agent update` fails `[unauthenticated]`; brew `cursor-agent` reports 2026.02.13-41ac335, versions dir also has 2026.05.24. grok **1.0.5**.
+
+Housekeeping from this box used to stop after the local host — see [[housekeeping]] stdin bug. `nmbp` from here is `Host key verification failed` (known_hosts has no key for this Pro).

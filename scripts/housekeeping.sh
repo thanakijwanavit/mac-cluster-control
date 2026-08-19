@@ -78,7 +78,11 @@ EOF
 REMOTE="${REMOTE//INSTALLFLAG/$INSTALL}"
 
 run_on() { # $1=alias-or-empty
-  if [[ -z "$1" ]]; then bash -c "$REMOTE" 2>&1
+  # Close stdin on the local path. bash -c otherwise inherits the
+  # while-read fleet.json stream and a child (brew/claude/cursor-agent)
+  # will consume the remaining hosts — scheduled runs from mini3 then
+  # never reach magnus. SSH uses a here-string, so it is already isolated.
+  if [[ -z "$1" ]]; then bash -c "$REMOTE" </dev/null 2>&1
   else ssh -o BatchMode=yes -o ConnectTimeout=8 "$1" "bash -s" <<<"$REMOTE" 2>&1; fi
 }
 

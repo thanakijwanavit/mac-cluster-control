@@ -4,7 +4,7 @@ type: reference
 status: stable
 tags: [moc, home]
 created: 2026-08-14
-updated: 2026-08-14
+updated: 2026-08-19
 owner: nic
 ---
 
@@ -36,7 +36,7 @@ This GitHub repo is **public**. Do not put passwords, key material, or Jump Desk
 | [[nmba]] (this Air) | online | n/a (client) | client 1.4.0 | n/a |
 | [[magnus-mac-mini]] | online, exit node, direct | **ok** `nic@magnus` | server installed, **UDP fails** | bookmark exists, port open |
 | [[mac-mini-3]] | online, direct | **ok** `nic@mini3` | server installed, **UDP fails** | bookmark exists, port open |
-| [[nics-macbook-pro]] | online, DERP(sin) | port open, **key denied** | unknown | **added** 2026-08-14, port open |
+| [[nics-macbook-pro]] | online (console 2026-08-19) | inbound **key denied**; outbound to minis **ok** | unknown | **added** 2026-08-14, port open |
 | [[nics-mac-mini-2]] | **offline** (key expired 2026-08-01) | closed | — | bookmark exists, unreachable |
 | [[prathams-macbook-air-1]] | offline (seen ~10 min earlier) | closed | — | none |
 | Other people's Macs | see [[others]] | do not force | — | — |

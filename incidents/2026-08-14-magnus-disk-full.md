@@ -8,7 +8,7 @@ symptoms:
   - "101Mi available"
   - "Capacity 100%"
 created: 2026-08-14
-updated: 2026-08-14
+updated: 2026-08-19
 owner: nic
 ---
 
@@ -27,3 +27,17 @@ Largest homes under `/Users/nic`: `Library` 50G, `gt` 4.6G, `go` 4.0G, Downloads
 ## Next
 
 SSH in and inspect `du -sh /Users/nic/Library/*`, `tmutil listlocalsnapshots /`, and Docker/podman if present. Do not delete blindly from this Air without looking. Update this note with what you reclaim.
+
+## Follow-up (2026-08-19)
+
+Still tight, but no longer 101 Mi. From nics-macbook-pro → `nic@magnus-mac-mini`:
+
+```
+before: /System/Volumes/Data  349 Mi free (98–100%)
+brew cleanup -s               ~2.3 GB (Homebrew cache: llvm tarball, grok-build 1.0.4, Chrome, Beeper, old Claude zips, …)
+rm cursor-agent 2026.01.28    149 M (unused; current was 2026.05.24)
+after cleanup:                2.6 Gi free
+after claude-code + kimi-code 2.1 Gi free
+```
+
+`~/.npm` is still **2.3 G** and was not touched. APFS Data is 203 Gi / 228 Gi (99%). grok cask is still not installed.
