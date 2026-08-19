@@ -7,17 +7,18 @@ symptoms:
   - "This model's maximum context length is 131072 tokens. However, you requested 131072 output tokens"
   - "connect kimi code to a self-hosted vllm"
 created: 2026-08-18
-updated: 2026-08-18
+updated: 2026-08-19
 owner: nic
 ---
 
 # Connect Kimi Code CLI to the vLLM on gpu-server-1
 
 gpu-server-1 (Linux, tailnet `gpu-server-1`, 100.98.223.39) runs vLLM serving
-`Qwen/Qwen3-Coder-30B-A3B-Instruct` as model id `qwen3-coder` on port 8080,
-OpenAI-compatible, no auth, tensor-parallel ×4, `--enable-auto-tool-choice
---tool-call-parser qwen3_coder`, `--max-model-len 131072`. It also runs Ollama
-and an sglang image server — the vLLM on 8080 is the coding LLM.
+`Qwen/Qwen3.8-27B-FP8` as `qwen3.8-27b` and `qwen3-coder` on port 8080,
+OpenAI-compatible, no auth, tensor-parallel ×4 on GPUs 4–7, YaRN
+`--max-model-len 1000000`, `--kv-cache-dtype fp8`,
+`--tool-call-parser qwen3_coder --reasoning-parser qwen3`. systemd:
+`qwen38-vllm.service`. Image servers stay on GPUs 0–3.
 
 ## When to use
 
@@ -36,9 +37,9 @@ api_key = "vllm-no-auth"                   # placeholder — CLI refuses to star
 [models."gpu-server-1/qwen3-coder"]
 provider = "gpu-server-1"
 model = "qwen3-coder"
-max_context_size = 131072
-max_output_size = 16384        # required — see below
-capabilities = [ "tool_use" ]
+max_context_size = 1000000
+max_output_size = 32768        # required — see below
+capabilities = [ "thinking", "tool_use" ]
 ```
 
 Then use it with `kimi -m gpu-server-1/qwen3-coder` or `/model` in the TUI.
@@ -72,3 +73,12 @@ Tool use verified working: the model ran a Bash echo through the CLI's tool
 loop (vLLM's `qwen3_coder` parser handles the calls).
 
 Done on nmba 2026-08-18; config lives in `~/.kimi-code/config.toml` there.
+
+## Live check 2026-08-19 (after cutover)
+
+`GET http://gpu-server-1:8080/v1/models` → `root=Qwen/Qwen3.8-27B-FP8`, ids
+`qwen3.8-27b` and `qwen3-coder`, `max_model_len=1000000`. Journal:
+`GPU KV cache size: 8,048,361 tokens` (8.05× a 1M request). Smoke:
+`ROUNDTRIP_OK` and alias `ALIAS_OK`. Unit `qwen38-vllm.service` enabled.
+H100s are SM 9.0 Hopper — FP8 Tensor Cores are native (2× FP16 peak).
+This is **not** Qwen3.8-Max (2.4T). See [[gpu-server-1]].
